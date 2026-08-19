@@ -1,11 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { serverDataKey } from './constants';
 import { StorageServer } from './types';
+import * as SecureStore from 'expo-secure-store';
 
 const storage = {
     getItem: async (key: string) => {
         try {
-            return await AsyncStorage.getItem(key);
+            let result = await SecureStore.getItemAsync(key);
+            return result;
         } catch (error) {
             if (typeof window !== 'undefined' && window.localStorage) {
                 return window.localStorage.getItem(key);
@@ -16,7 +17,7 @@ const storage = {
     },
     setItem: async (key: string, value: string) => {
         try {
-            await AsyncStorage.setItem(key, value);
+            await SecureStore.setItemAsync(key, value);
         } catch (error) {
             if (typeof window !== 'undefined' && window.localStorage) {
                 window.localStorage.setItem(key, value);
@@ -57,4 +58,4 @@ const useStorageServerHook = () => {
     }
 }
 
-export { useStorageServerHook }
+export { useStorageServerHook, storage }

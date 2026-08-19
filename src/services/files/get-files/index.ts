@@ -1,10 +1,11 @@
-import { useStorageServerHook } from '@/hooks/storageServerHook/useStorageServerHook';
-import axios from 'axios';
+import { storage } from '@/hooks/storageServerHook/useStorageServerHook';
+import { loggedApi } from '@/infra/loggedApi';
 
-const getFiles = async () => {
-    const { getStorageServer } = useStorageServerHook()
-    const { server, path } = await getStorageServer()
-    const response = await axios.get(`http://${server}:7421/api/resources/${path}`)
+const getFiles = async (subPath?: string) => {
+    const { getItem } = storage
+    const path = await getItem('path')
+    const finalPath = String(subPath ?? path)
+    const response = await loggedApi().get(finalPath)
     return response.data
 }
 

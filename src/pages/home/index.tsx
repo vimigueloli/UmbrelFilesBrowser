@@ -8,6 +8,8 @@ const Home = () => {
         server,
         updatePath,
         updateServer,
+        password,
+        updatePassword,
         saveServerData
     } = useHomeServerHook()
     return (
@@ -34,6 +36,18 @@ const Home = () => {
                         placeholder='Enter base path'
                         onChangeText={updatePath}
                         value={path}
+                    />
+                </View>
+                <View className='flex flex-col gap-2 w-full justify-center items-center'>
+                    <Text className='text-white'>
+                        Password
+                    </Text>
+                    <TextInput
+                        className='border border-white rounded-xl px-3 w-full h-12 text-white placeholder:text-white/30'
+                        placeholder='Enter password'
+                        secureTextEntry
+                        onChangeText={updatePassword}
+                        value={password}
                     />
                 </View>
                 <View className='w-full'>
